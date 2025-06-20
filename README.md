@@ -182,4 +182,3 @@ curl "http://localhost:3000/api/items/<id>" -Method DELETE
 
 ---
 
-> 📁 Submit this project by pushing it to GitHub and sharing the link. Make sure this README is present in the root.
