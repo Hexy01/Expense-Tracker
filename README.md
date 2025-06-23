@@ -153,13 +153,13 @@ curl -X DELETE http://localhost:3000/api/expenses/<id>
 ---
 
 ## 📊 Features
--Add, view, and delete personal expenses
--Filter expenses by category or date range
--Dashboard showing:
+- Add, view, and delete personal expenses
+- Filter expenses by category or date range
+- Dashboard showing:
   Total spending.
   Pie chart by category.
   Bar chart of expenses. 
--Clean, responsive design using internal CSS
+- Clean, responsive design using internal CSS
 
 ## ✅ Status
 
