@@ -59,4 +59,50 @@ describe('API /api/expenses', () => {
     expect(res.statusCode).toBe(200);
     expect(res.body[0].category).toBe('Transport');
   });
+
+  // ✅ Filter by startDate only
+  it('GET supports startDate filter only', async () => {
+    const oldDate = new Date('2023-01-01');
+    const recentDate = new Date('2025-01-01');
+
+    await Expense.create({ title: 'Old', amount: 100, category: 'A', date: oldDate });
+    await Expense.create({ title: 'New', amount: 200, category: 'A', date: recentDate });
+
+    const res = await request(app).get('/api/expenses?startDate=2024-01-01');
+    expect(res.statusCode).toBe(200);
+    expect(res.body.length).toBe(1);
+    expect(res.body[0].title).toBe('New');
+  });
+
+  // ✅ Filter by endDate only
+  it('GET supports endDate filter only', async () => {
+    const oldDate = new Date('2023-01-01');
+    const recentDate = new Date('2025-01-01');
+
+    await Expense.create({ title: 'Old', amount: 100, category: 'B', date: oldDate });
+    await Expense.create({ title: 'New', amount: 200, category: 'B', date: recentDate });
+
+    const res = await request(app).get('/api/expenses?endDate=2024-01-01');
+    expect(res.statusCode).toBe(200);
+    expect(res.body.length).toBe(1);
+    expect(res.body[0].title).toBe('Old');
+  });
+
+  // ✅ Filter by both startDate and endDate
+  it('GET supports both startDate and endDate filters', async () => {
+    const dates = [
+      new Date('2023-01-01'),
+      new Date('2024-06-01'),
+      new Date('2025-01-01'),
+    ];
+
+    await Expense.create({ title: 'Old', amount: 100, category: 'C', date: dates[0] });
+    await Expense.create({ title: 'Mid', amount: 200, category: 'C', date: dates[1] });
+    await Expense.create({ title: 'New', amount: 300, category: 'C', date: dates[2] });
+
+    const res = await request(app).get('/api/expenses?startDate=2024-01-01&endDate=2024-12-31');
+    expect(res.statusCode).toBe(200);
+    expect(res.body.length).toBe(1);
+    expect(res.body[0].title).toBe('Mid');
+  });
 });
