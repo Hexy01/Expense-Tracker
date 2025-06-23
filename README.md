@@ -151,7 +151,7 @@ curl -X DELETE http://localhost:3000/api/expenses/<id>
 ```
 ---
 
-### 🧪 Testing
+## 🧪 Testing
 
 Run All Tests + Coverage
 ```bash
@@ -164,7 +164,7 @@ This runs:
 - Integration Tests (MongoDB in-memory server)
 - API Tests (Supertest with Express)
 
-### Testing Tools Used
+## Testing Tools Used
 
 | Purpose             | Library               |
 | ------------------- | --------------------- |
@@ -174,7 +174,7 @@ This runs:
 | Coverage            | Jest --coverage       |
 
 
-### ✅ Test Coverage
+## ✅ Test Coverage
 Below is a screenshot of the test coverage result (npm test):
 
 ![Screenshot 2025-06-24 031511](https://github.com/user-attachments/assets/f5d1bdc9-6136-4dfb-92b0-340792b237ee)![Screenshot 2025-06-24 031212](https://github.com/user-attachments/assets/1b680058-0a4c-4bfb-a033-ade54b4c5f7a)
