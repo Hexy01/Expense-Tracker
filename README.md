@@ -1,76 +1,63 @@
-# 📦 Inventory Management API with React Frontend
+# 💸 Personal Expense Tracker – Full Stack App
 
-This project is a full-stack inventory management system built for the **Keploy Assignment-2**. It features a custom RESTful API with MongoDB integration and an optional React-based frontend.
-
----
+This is a full-stack expense tracker application developed as part of **Keploy Session-2 Task**. It allows users to add, view, filter, and delete personal expenses using custom-built API. and a minimal but responsive React frontend. The data is stored securely using MongoDB Atlas.
 
 ## 🧰 Technologies Used
-
-- **Node.js** + **Express** – Backend and API server
-- **MongoDB Atlas** – Cloud-based NoSQL database
-- **Mongoose** – MongoDB object modeling
-- **React** – Frontend (optional but included)
-- **dotenv** – For environment configuration
-- **cors** – Enable cross-origin requests
-
----
+- **Node.js + Express** – Backend and API server  
+- **MongoDB Atlas** – Cloud NoSQL database  
+- **Mongoose** – ODM for MongoDB  
+- **React (Vite)** – Frontend (fully implemented)  
+- **Axios** – For HTTP requests  
+- **dotenv** – For environment configuration  
+- **cors** – To allow frontend-backend communication
 
 ## 📌 API Endpoints & Functionality
 
-### 🔹 1. Get All Items
+### 🔹 1. Get All Expenses  
+- **URL:** `/api/expenses`  
+- **Method:** `GET`  
+- **Query Params (Optional):**  
+  - `category` – filter by category  
+  - `startDate` / `endDate` – filter by date range  
 
-- **URL**: `/api/items`
-- **Method**: `GET`
-- **Response**:
+**Response:**  
 ```json
 [
   {
     "_id": "abc123",
-    "name": "Pen",
-    "quantity": 10,
-    "status": "available"
+    "title": "Uber Ride",
+    "amount": 250,
+    "category": "Transport",
+    "date": "2025-06-23"
   }
 ]
 ```
-
 ---
 
 ### 🔹 2. Add New Item
 
-- **URL**: `/api/items`
+- **URL**: `/api/expenses`
 - **Method**: `POST`
 - **Request Body**:
 ```json
 {
-  "name": "Pen",
-  "quantity": 10
+  "title": "Groceries",
+  "amount": 500,
+  "category": "Food",
+  "date": "2025-06-22"
 }
+
 ```
 
 ---
 
-### 🔹 3. Update Item
+### 🔹 3. Delete Expense
 
-- **URL**: `/api/items/:id`
-- **Method**: `PUT`
+- **URL**: `/api/expenses/:id`
+- **Method**: `DELETE`
 - **Request Body**:
 ```json
-{
-  "quantity": 25
-}
-```
-
----
-
-### 🔹 4. Delete Item
-
-- **URL**: `/api/items/:id`
-- **Method**: `DELETE`
-- **Response**:
-```json
-{
-  "message": "Item deleted successfully"
-}
+{ "message": "Expense deleted successfully" }
 ```
 
 ---
@@ -79,30 +66,26 @@ This project is a full-stack inventory management system built for the **Keploy 
 
 This app uses **MongoDB Atlas** for cloud-based data storage.
 
-- Integration is handled using **Mongoose**.
+- The backend connects to MongoDB Atlas via Mongoose.
 - The connection is configured through the `.env` file:
-```
-MONGO_URI=your_mongodb_atlas_connection_string
-```
+
 - Mongoose is connected in `server.js`:
 ```js
 mongoose.connect(process.env.MONGO_URI)
 ```
-
+- MongoDB schema defined in models/Expense.js.
 ---
 
 ## ▶️ How to Run the Server
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/keploy-API.git
+git clone https://github.com/Hexy01/keploy-API.git
 cd keploy-API
 ```
 
 2. Create a `.env` file:
-```
-MONGO_URI=your_mongodb_atlas_uri
-```
+
 
 3. Install dependencies:
 ```bash
@@ -111,10 +94,11 @@ npm install
 
 4. Start the server:
 ```bash
-node server.js
+npm run dev
+
 ```
 
-> Server will run on: `http://localhost:3000`
+> Server will run on: `http://localhost:5000`
 
 ---
 
@@ -132,7 +116,7 @@ npm install
 
 3. Start the React development server:
 ```bash
-npm start
+npm run dev
 ```
 
 > React will open on: `http://localhost:3000` or `http://localhost:3001`
@@ -146,39 +130,43 @@ Make sure `frontend/package.json` includes:
 
 ## 📡 How to Interact with the API (via curl or browser)
 
-### ➕ Add Item
+### ➕ Add Expense
 
 ```bash
-curl "http://localhost:3000/api/items" -Method POST -Body '{"name":"Pen","quantity":10}' -ContentType "application/json"
+curl -X POST http://localhost:3000/api/expenses \
+-H "Content-Type: application/json" \
+-d '{"title":"Bus Ticket","amount":40,"category":"Transport","date":"2025-06-24"}'
+
 ```
 
-### 📋 Get All Items
+### 📋 Get All Expenses
 
 ```bash
-curl http://localhost:3000/api/items
+curl http://localhost:3000/api/expenses
 ```
 
-### ✏️ Update Item
+### ❌ Delete Expense
 
 ```bash
-curl "http://localhost:3000/api/items/<id>" -Method PUT -Body '{"quantity":25}' -ContentType "application/json"
+curl -X DELETE http://localhost:3000/api/expenses/<id>
 ```
-
-### ❌ Delete Item
-
-```bash
-curl "http://localhost:3000/api/items/<id>" -Method DELETE
-```
-
 ---
+
+## 📊 Features
+-Add, view, and delete personal expenses
+-Filter expenses by category or date range
+-Dashboard showing:
+  Total spending.
+  Pie chart by category.
+  Bar chart of expenses. 
+-Clean, responsive design using internal CSS
 
 ## ✅ Status
 
-- [x] Backend server working
-- [x] MongoDB connection established
-- [x] API endpoints tested
-- [x] Frontend successfully connected
-- [x] Fully documented
+- Backend server working
+- MongoDB connection established
+- API endpoints tested
+- Frontend successfully connected
 
 ---
 
