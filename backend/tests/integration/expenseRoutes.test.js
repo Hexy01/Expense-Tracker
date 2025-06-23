@@ -1,40 +1,47 @@
-const request = require('supertest');
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const app = require('../../app');
 const Expense = require('../../models/Expense');
 
-let mongoServer;
+let mongo;
 
 beforeAll(async () => {
-  mongoServer = await MongoMemoryServer.create();
-  await mongoose.connect(mongoServer.getUri(), { dbName: 'test' });
+  mongo = await MongoMemoryServer.create();
+  await mongoose.connect(mongo.getUri());
 });
 
 afterAll(async () => {
   await mongoose.disconnect();
-  await mongoServer.stop();
+  await mongo.stop();
 });
 
-beforeEach(async () => {
+afterEach(async () => {
   await Expense.deleteMany();
 });
 
-describe('POST /api/expenses', () => {
-  it('creates a new expense', async () => {
-    const res = await request(app)
-      .post('/api/expenses')
-      .send({ title: 'Test Expense', amount: 50, category: 'Food', date: new Date() });
+describe('Expense Model Integration', () => {
+  it('should save and retrieve an expense from the database', async () => {
+    const expense = await Expense.create({
+      title: 'Bus',
+      amount: 50,
+      category: 'Transport',
+      date: new Date()
+    });
 
-    expect(res.statusCode).toBe(201);
-    expect(res.body.title).toBe('Test Expense');
+    const found = await Expense.findById(expense._id);
+    expect(found.title).toBe('Bus');
+    expect(found.amount).toBe(50);
   });
-});
 
-describe('GET /api/expenses', () => {
-  it('fetches all expenses', async () => {
-    await Expense.create({ title: 'Lunch', amount: 30, category: 'Food', date: new Date() });
-    const res = await request(app).get('/api/expenses');
-    expect(res.body.length).toBeGreaterThan(0);
+  it('should delete an expense', async () => {
+    const exp = await Expense.create({
+      title: 'DeleteMe',
+      amount: 100,
+      category: 'Other',
+      date: new Date()
+    });
+
+    await Expense.findByIdAndDelete(exp._id);
+    const result = await Expense.findById(exp._id);
+    expect(result).toBeNull();
   });
 });

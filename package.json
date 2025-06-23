@@ -1,0 +1,30 @@
+{
+  "name": "assignment2",
+  "version": "1.0.0",
+  "description": "This is a full-stack expense tracker application developed as part of **Keploy Session-2 Task**. It allows users to add, view, filter, and delete personal expenses using custom-built API. and a minimal but responsive React frontend. The data is stored securely using MongoDB Atlas.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hexy01/keploy-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Hexy01/keploy-API/issues"
+  },
+  "homepage": "https://github.com/Hexy01/keploy-API#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
