@@ -1,5 +1,4 @@
-# 💸 Personal Expense Tracker – Full Stack App
-
+# 💸 Personal Expense Tracker –
 This is a full-stack expense tracker application developed as part of **Keploy Session-2 Task**. It allows users to add, view, filter, and delete personal expenses using custom-built API. and a minimal but responsive React frontend. The data is stored securely using MongoDB Atlas.
 
 ## 🧰 Technologies Used
